@@ -3,11 +3,15 @@ $(() => {
 	let oldListElements = [];
 	let newCookie = document.cookie.split(",");
 	
-	for (let i = 0; i < newCookie.length; i++) {
-		oldListElements.push(`<li>${newCookie[i]}</li>`);
-	}
+	if (document.cookie === "") {
+		alert("No Assignments");
+	} else {
+		for (let i = 0; i < newCookie.length; i++) {
+			oldListElements.push(`<li>${newCookie[i]}</li>`);
+		}
 
-	$(".list").html(oldListElements);
+		$(".list").html(oldListElements);
+	}
 
 	// add the input to the assignment list
 	function addAssignment() {
