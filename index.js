@@ -1,9 +1,28 @@
 $(() => {
   
+	let oldListElements = [];
+	let newCookie = document.cookie.split(",");
+	
+	for (let i = 0; i < newCookie.length; i++) {
+		oldListElements.push(`<li>${newCookie[i]}</li>`);
+	}
+
+	$(".list").html(oldListElements);
+
 	// add the input to the assignment list
-	let addAssignment = () => {
+	function addAssignment() {
 		const value = $(".input").val();
-    	$(".list").append(`<li>${value}</li>`);
+		$(".list").append(`<li>${value}</li>`);
+		let list = $(".list").children();
+		let listArray = list.toArray();
+		let listElemets = [];
+
+		for (let i = 0; i < listArray.length; i++) {
+			listElemets.push(listArray[i].innerHTML);
+		}
+
+		document.cookie = `${listElemets}; SameSite=secure;`;
+		console.table(listElemets);
 	}
 
 	// run addAssignment when the form is submited
@@ -11,20 +30,5 @@ $(() => {
 		e.preventDefault();
 		addAssignment();
 	});
-
-   	// make an array of all the li elements
-	let list = $(".list").children();
-	// turn list intto a string
-	let listArray = list.toArray();
-
-	for (let i = 0; i < listArray.length; i++) {
-		console.log(listArray[i].innerHTML);
-	}
-
-	let lastItemInArray = listArray.at(-1).innerHTML;
-
-	document.cookie = `list: ${lastItemInArray}; SameSite=Lax;`;
-
-	console.log(document.cookie);
 
 });
