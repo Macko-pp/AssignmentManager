@@ -5,19 +5,26 @@ $(() => {
 	
 	if (document.cookie === "") {
 		alert("No Assignments");
+		
 	} else {
 		for (let i = 0; i < newCookie.length; i++) {
-			oldListElements.push(`<li>${newCookie[i]}</li>`);
+			if (newCookie[i] == "") {
+				delete newCookie[i];
+				continue
+			}
+			oldListElements.push(`<input type="checkbox"> <nobr> ${newCookie[i]} </nobr> <br>`);
 		}
 
-		$(".list").html(oldListElements);
+		console.log(oldListElements)
+
+		$("label").html(oldListElements);
 	}
 
 	// add the input to the assignment list
 	function addAssignment() {
 		const value = $(".input").val();
-		$(".list").append(`<li>${value}</li>`);
-		let list = $(".list").children();
+		$("label").append(`<input type="checkbox"> <nobr> ${value} </nobr> <br>`);
+		let list = $("label").children();
 		let listArray = list.toArray();
 		let listElemets = [];
 
@@ -26,7 +33,6 @@ $(() => {
 		}
 
 		document.cookie = `${listElemets}; SameSite=secure;`;
-		console.table(listElemets);
 	}
 
 	// run addAssignment when the form is submited
